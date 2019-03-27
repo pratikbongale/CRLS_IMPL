@@ -1,0 +1,6 @@
+# Pycharm specific files
+.idea/
+__pycache__/
+
+# nohup and batch logs
+*.out
