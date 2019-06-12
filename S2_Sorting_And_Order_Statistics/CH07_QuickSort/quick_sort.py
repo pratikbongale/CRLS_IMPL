@@ -1,5 +1,5 @@
 import random
-from Foundations.CH02.insertion_sort import insertion_sort_inplace
+from S1_Foundations.CH02_BasicSorts.insertion_sort import insertion_sort_inplace
 
 '''
 QUICK SORT
@@ -7,21 +7,31 @@ QUICK SORT
 - expected running time = O(nlgn)
 
 Has troubles when array is sorted(asc/desc) or all elements are the same
-- Solution: use the randomized version
+- Solution: use the randomized version 
 '''
 
+def simple_quicksort(A, p, r):
+    # we pass start index and end index because we are going to make this recursive
 
-# we pass start index and end index because we are going to make this recursive
-def quicksort(A, p, r):
     if p < r:
         q = partition(A, p, r)
-        quicksort(A, p, q-1)
-        quicksort(A, q+1, r)
+        simple_quicksort(A, p, q-1)
+        simple_quicksort(A, q+1, r)
 
 
-def partition(A, p, r):
+def partition(A, p, r, piv=None):
+    '''
+    Choose last element as pivot(x) and shuffle the array such that
+    x is its the final sorted position.
 
-    x = A[r]        # pivot element
+    piv: if given is the index of pivot element
+    '''
+
+    if piv:
+        x = A[piv]
+    else:
+        x = A[r]
+
     i = p-1         # tracks position of last insert
 
     # loop should go from p upto position (r-1)
@@ -34,15 +44,15 @@ def partition(A, p, r):
 
     return i+1      # return the pivot idx for further partitioning
 
-'''
-only the partition function is modified
-we now choose pivot at random
 
-to increase the randomness, we can select 3 random indices
-and then take the median of those indices
-'''
 def randomized_quicksort(A, p, r):
+    '''
+    only the partition function is modified
+    we now choose pivot at random
 
+    to increase the randomness, we can select 3 random indices
+    and then take the median of those indices
+    '''
 
     if p < r:
         q = randomized_partition(A, p, r)
@@ -57,32 +67,33 @@ def randomized_partition(A, p, r):
 
     return partition(A, p, r)
 
-
-'''
-Improve quick sort by using faster insertion sort when you
-have the input almost sorted. 
-
-How: when less than k elements are left in subarray, return 
-the subarray unsorted. when the topmost call returns,
-sort the whole array using insertion sort.
-
-Complexity: O(nk + nlg(n/k)) 
-'''
-
 def quick_ins_sort(A, p, r, k):
+    '''
+    Improve quick sort by using faster insertion sort when you
+    have the input almost sorted.
+
+    How: when less than k elements are left in subarray, return
+    the subarray unsorted. when the topmost call returns,
+    sort the whole array using insertion sort.
+
+    Complexity: O(nk + nlg(n/k))
+    '''
+
     if p < r and (r-p+1) >= k:
         q = partition(A, p, r)
         quick_ins_sort(A, p, q-1, k)
         quick_ins_sort(A, q+1, r, k)
 
-'''
-When all elements are equal, all above methods fail.
-Solution:
-- use one more partition of array [ <x | =x | >x ]
-- return 2 indices q and t such that p <= q <= t <= r
-- keep in mind that partition process must take O(r-p+1)
-'''
+
 def partition_all_eq(A, p, r):
+    '''
+    When all elements are equal, all above methods fail.
+    Solution:
+    - use one more partition of array [ <x | =x | >x ]
+    - return 2 indices q and t such that p <= q <= t <= r
+    - keep in mind that partition process must take O(r-p+1)
+    '''
+
     x = A[r]
     i = t = p-1
 

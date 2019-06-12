@@ -6,10 +6,11 @@ def right(i):
 
 def max_heapify(A, i, heapsize):
 
+    # heap-down
     # assumes left and right subtrees are heaps
-    # but A[i] may be violating the heap property (heap-down)
+    # but A[i] may be violating the heap property
     # always keep in mind the HEAPSIZE property
-    # it tells that actual valid elements of the heap
+    # it tells which are valid elements of the heap
 
     largest = i
     l = left(i)

@@ -14,12 +14,12 @@ cd active_learning_label_distributions
 pip install -r requirements.txt
 ```
 ---------
-### How to run
+#### How to run
 ```
 python filename.py [arg1] [arg2] ...
 ```
 
-### How to test
+#### How to test
 
 ##### Simply run the program
 ```python
@@ -62,9 +62,9 @@ python -m unittest -v insertion_sort.py
 
 
 
-##### Python
+#### Python Idiosyncrasies
 
-Q. How does python pass values? 
+##### Q. How does python pass values? 
 - uses Pass-by-object: each parameter is first passed by reference, however, if a new object is assigned to that reference, it switches to Pass-by-value.
 - def foo(*args) defines variable number of arguments. it is received in the function as a tuple of values
 - to pass a list instead of several numbers as arguments, we call foo as: lst = [1,2,4] foo(*lst) Here we unpack lst into 3 values
@@ -111,3 +111,59 @@ mixture of *, **
 (47, 11, 'extract', 'yes')
 >>> 
 ```
+
+##### OOP in python
+
+Private members:
+- No concept of private members in python, we call them non-public.
+- We use naming conventions to differentiate btw public / non-public
+- Add an 'Underscore' before variable name: non-public 
+- This is not enforced, they should be treated as private
+
+Interfaces:
+- python doesnt have interfaces as it supports multiple inheritance
+- we do have abstract base classes(cannot be instantiated)
+```python
+from abc import ABCMeta, abstractmethod
+
+class IInterface:
+    __metaclass__ = ABCMeta
+
+    @classmethod
+    def version(self): return "1.0"
+    @abstractmethod
+    def show(self): raise NotImplementedError
+    
+class MyServer(IInterface):
+    def show(self):
+        return "Hellow world"
+
+class MyClient(object):
+
+    def __init__(self, server):
+        if not isinstance(server, IInterface): raise Exception('Bad interface')
+        if not IInterface.version() == '1.0': raise Exception('Bad revision')
+
+        self._server = server
+
+
+    def client_show(self):
+        self._server.show()
+
+MyClient(MyServer()).client_show()
+```
+
+- For multiple inheritance, follow order left to right to find a method
+```python
+class Third(First, Second):
+    def show(self):
+        pass
+    
+class Main(Third):
+    def __init__(self):
+        self.show()  # here order followed will be [Third, First, Second]
+```  
+
+- when the case is ambiguous, python raises an exception
+
+
