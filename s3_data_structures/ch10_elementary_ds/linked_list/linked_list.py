@@ -19,7 +19,9 @@ class LinkedList:
 class Node:
     def __init__(self, x):
         self.data = x
-        self.next = None
+
+    def __str__(self):
+        return str(self.data)
 
 class EmptyLinkedListError(Exception):
     def __init__(self):

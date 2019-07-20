@@ -112,7 +112,7 @@ mixture of *, **
 >>> 
 ```
 
-##### OOP in python
+##### Q. How does python support interfaces? how to declare private members?
 
 Private members:
 - No concept of private members in python, we call them non-public.
@@ -167,3 +167,16 @@ class Main(Third):
 - when the case is ambiguous, python raises an exception
 
 
+##### Q. difference between 'is' and '=='?
+- 'is' will return True if two variables point to the same object
+- '==' if the objects referred to by the variables are equal
+
+##### Q. How does python compare two objects?
+- using __eq__() and __ne__() methods
+- there are many others [here](https://devinpractice.com/2016/11/29/python-objects-comparison/)
+
+##### Q. how should we name python modules/packages/classes/functions/variables?
+- everything except class names should have short, all-lowercase names
+- Python module: source file (ex. foobar.py)
+- Python package: directory (ex. bst)
+- class names should have __CapWords__ format.

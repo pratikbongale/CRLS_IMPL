@@ -1,4 +1,4 @@
-from S3_Data_Structures.CH10_ElementaryDS.LinkedList.linked_lists import *
+from S3_Data_Structures.ch10_elementary_ds.LinkedList.linked_list import *
 
 '''
 Not circular
@@ -13,6 +13,7 @@ class DLLNode(Node):
     def __init__(self, x):
         super().__init__(x)
         self.prev = None
+        self.next = None
 
 
 class DoublyLinkedList(LinkedList):
@@ -76,9 +77,9 @@ if __name__ == '__main__':
         print('Linked List is Empty')
 
     # test insert functionality
-    dll.insert(Node(100))
-    dll.insert(Node(200))
-    dll.insert(Node(300))
-    dll.insert(Node(400))
+    dll.insert(DLLNode(100))
+    dll.insert(DLLNode(200))
+    dll.insert(DLLNode(300))
+    dll.insert(DLLNode(400))
 
     dll.print_list()

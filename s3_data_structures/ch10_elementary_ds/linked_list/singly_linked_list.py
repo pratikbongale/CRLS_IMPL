@@ -1,9 +1,10 @@
-from S3_Data_Structures.CH10_ElementaryDS.LinkedList.linked_lists import *
+from S3_Data_Structures.ch10_elementary_ds.LinkedList.linked_list import *
 
 class SLLNode(Node):
 
     def __init__(self, x):
         super().__init__(x)
+        self.next = None
 
 class SinglyLinkedList(LinkedList):
 
@@ -50,10 +51,19 @@ class SinglyLinkedList(LinkedList):
         s = ''
         x = self.head
         while x:
-            s += str(x.data) + ('->' if x.next else '')
+            s += str(x.data) + (' => ' if x.next else '')
             x = x.next
 
         print(s)
+
+    def __str__(self):
+        s = ''
+        x = self.head
+        while x:
+            s += str(x.data) + (' => ' if x.next else '')
+            x = x.next
+
+        return s
 
     def reverse(self):
 
@@ -68,11 +78,30 @@ class SinglyLinkedList(LinkedList):
 
         self.head = y
 
+    def search(self, key):
+
+        if not self.is_empty():
+            x = self.head
+            while x:
+                if x.data == key:   # compares objects based on comparator __eq__()
+                    break
+                x = x.next
+
+            if x:
+                return x
+            else:
+                return None
+        else:
+            return None
+
+    def is_empty(self):
+        return self.head is None
+
 if __name__ == '__main__':
 
     sll = SinglyLinkedList()
 
-    x = Node(10)
+    x = SLLNode(10)
 
     # test if it catches the exception
     try:
@@ -81,11 +110,13 @@ if __name__ == '__main__':
         print(err.msg)
 
     # test insert functionality
-    sll.insert(Node(100))
-    sll.insert(Node(200))
-    sll.insert(Node(300))
-    sll.insert(Node(400))
+    sll.insert(SLLNode(100))
+    sll.insert(SLLNode(200))
+    sll.insert(SLLNode(300))
+    sll.insert(SLLNode(400))
 
     sll.print_list()
     sll.reverse()
     sll.print_list()
+
+    print(sll.search(200))

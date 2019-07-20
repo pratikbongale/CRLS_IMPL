@@ -1,5 +1,5 @@
 import unittest
-import S1_Foundations.CH02_BasicSorts.insertion_sort as insertion_sort
+import s1_foundations.ch02_basic_sorts.insertion_sort as insertion_sort
 
 class TestSortingAlgorithms(unittest.TestCase):
 

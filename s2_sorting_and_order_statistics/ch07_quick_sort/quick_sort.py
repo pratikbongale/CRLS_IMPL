@@ -1,5 +1,5 @@
 import random
-from S1_Foundations.CH02_BasicSorts.insertion_sort import insertion_sort_inplace
+from s1_foundations.ch02_basic_sorts.insertion_sort import insertion_sort_inplace
 
 '''
 QUICK SORT

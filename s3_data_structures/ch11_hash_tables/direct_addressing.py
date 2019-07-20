@@ -1,22 +1,22 @@
 from S3_Data_Structures.CH11_HashTables.HashTable import *
 
-class Employee:
-
+class Employee(HTObject):
+    # a hash table object
     def __init__(self, id, name, age):
-        self.key = id
+        super().__init__(id)
         self.name = name
         self.age = age
 
     def __str__(self):
-        return '[Key: {}, Name: {}, Age: {}]'.format(self.key, self.name, self.age)
+        return '(Key: {}, Name: {}, Age: {})'.format(self.key, self.name, self.age)
 
 class DirectAddressingHT(HashTable):
 
     def __init__(self, table_size):
+        super().__init__(capacity=table_size)
         self.ht = [None] * table_size
-        self.size = table_size
 
-    def search(self, k):
+    def get(self, k):
         # return the object if found, else return None
 
         if not self.is_valid_key(k):
@@ -29,7 +29,7 @@ class DirectAddressingHT(HashTable):
 
         return self.ht[k]
 
-    def insert(self, x):
+    def put(self, x):
         if not self.is_valid_key(x.key):
             print('Not a valid key')
 
@@ -58,20 +58,20 @@ if __name__ == '__main__':
     x = Employee(1, 'abc', 30)
     y = Employee(4, 'pqr', 25)
     ht = DirectAddressingHT(10)
-    z = ht.search(15)             # => invalid key
+    z = ht.get(15)             # => invalid key
     print(z) if z else ''           # => ''
 
-    ht.insert(x)                   # =>
-    z = ht.search(1)
+    ht.put(x)                   # =>
+    z = ht.get(1)
     print(z) if z else ''        # => (1, 'abc', 30)
 
     z = ht.delete(y)        # => not found
     print(z) if z else ''   # => ''
 
-    ht.insert(y)
+    ht.put(y)
     z = ht.delete(y)        # => found
     print(z) if z else ''  # => (4, 'pqr', 25)
 
-    ht.search(4)        # => not found
+    ht.get(4)        # => not found
 
 

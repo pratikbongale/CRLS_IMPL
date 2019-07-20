@@ -1,6 +1,6 @@
 import math
-from S2_Sorting_And_Order_Statistics.CH06_HeapSort.heaps import max_heapify
-from S2_Sorting_And_Order_Statistics.CH06_HeapSort.heaps import build_max_heap
+from s2_sorting_and_order_statistics.ch06_heap_sort.heaps import max_heapify
+from s2_sorting_and_order_statistics.ch06_heap_sort.heaps import build_max_heap
 
 def maximum(A):
     return A[0]
