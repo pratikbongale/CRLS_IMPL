@@ -1,4 +1,4 @@
-from S3_Data_Structures.ch10_elementary_ds.LinkedList.linked_list import *
+from s3_data_structures.ch10_elementary_ds.linked_list_ds.linked_list import *
 
 '''
 Not circular

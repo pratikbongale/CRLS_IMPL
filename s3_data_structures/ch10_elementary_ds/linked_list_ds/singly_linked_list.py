@@ -1,4 +1,13 @@
-from S3_Data_Structures.ch10_elementary_ds.LinkedList.linked_list import *
+from s3_data_structures.ch10_elementary_ds.linked_list_ds.linked_list import *
+
+'''
+single linked
+Insert at the head
+Remove specified element
+reverse
+search
+Print
+'''
 
 class SLLNode(Node):
 
@@ -47,7 +56,6 @@ class SinglyLinkedList(LinkedList):
         z.next = z.next.next
 
     def print_list(self):
-
         s = ''
         x = self.head
         while x:

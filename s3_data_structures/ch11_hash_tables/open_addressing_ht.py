@@ -1,5 +1,4 @@
-from S3_Data_Structures.CH11_HashTables.HashTable import HashTable, HTObject
-
+from s3_data_structures.ch11_hash_tables.hash_table import HashTable, HTObject
 
 class Car(HTObject):
     def __init__(self, n, color, power):

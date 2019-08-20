@@ -1,5 +1,5 @@
-from S3_Data_Structures.CH11_HashTables.HashTable import *
-from S3_Data_Structures.ch10_elementary_ds.LinkedList.singly_linked_list import *
+from s3_data_structures.ch11_hash_tables.hash_table import *
+from s3_data_structures.ch10_elementary_ds.linked_list_ds.singly_linked_list import *
 
 class Car(HTObject):
     def __init__(self, n, color, power):

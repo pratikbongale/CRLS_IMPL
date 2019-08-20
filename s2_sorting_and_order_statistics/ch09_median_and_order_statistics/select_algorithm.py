@@ -1,5 +1,5 @@
 
-from s2_sorting_and_order_statistics.ch07_quick_sort.quick_sort import partition, randomized_partition
+from s2_sorting_and_order_statistics.ch07_quick_sort.quick_sort import randomized_partition
 import math
 
 def find_min_max(A):

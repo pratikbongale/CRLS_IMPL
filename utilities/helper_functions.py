@@ -11,3 +11,18 @@ def print_matrix(mat):
         for j in range(c):
             print('{:{width}}'.format(mat[i][j], width=15), end='')
         print('\n')
+
+
+def print_binary_tree(root):
+
+    q = [root]
+    while q:
+        z = []
+        print([str(t) for t in q])
+        for x in q:
+            if x:
+                z.append(x.left)
+                z.append(x.right)
+
+        q = z
+

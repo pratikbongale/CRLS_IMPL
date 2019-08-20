@@ -1,4 +1,4 @@
-from S3_Data_Structures.ch13_rbtree.rbtree import RBTree, RBTreeNode, BLACK, RED
+from s3_data_structures.ch13_rbtree.rbtree import RBTree, RBTreeNode, BLACK, RED
 
 class OrderStatisticTreeNode(RBTreeNode):
 

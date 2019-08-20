@@ -1,4 +1,4 @@
-from S3_Data_Structures.CH11_HashTables.HashTable import *
+from s3_data_structures.ch11_hash_tables.hash_table import *
 
 class Employee(HTObject):
     # a hash table object

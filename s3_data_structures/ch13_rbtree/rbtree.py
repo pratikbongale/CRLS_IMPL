@@ -1,5 +1,5 @@
-from S3_Data_Structures.ch12_bst.bst import TreeNode
-from S3_Data_Structures.ch12_bst.bst import BinarySearchTree
+from s3_data_structures.ch12_bst.bst import TreeNode
+from s3_data_structures.ch12_bst.bst import BinarySearchTree
 
 RED = 'r'
 BLACK = 'b'
