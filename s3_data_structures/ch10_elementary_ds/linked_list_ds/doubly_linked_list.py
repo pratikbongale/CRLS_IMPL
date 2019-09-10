@@ -1,4 +1,5 @@
 from s3_data_structures.ch10_elementary_ds.linked_list_ds.linked_list import *
+from utilities.node_factory import *
 
 '''
 Not circular
@@ -7,14 +8,6 @@ Insert at the head
 Remove specified element
 Print
 '''
-
-class DLLNode(Node):
-
-    def __init__(self, x):
-        super().__init__(x)
-        self.prev = None
-        self.next = None
-
 
 class DoublyLinkedList(LinkedList):
 

@@ -1,20 +1,4 @@
-class TreeNode:
-    def __init__(self, data):
-        self.data = data
-        self.left = None
-        self.right = None
-        self.parent = None
-
-    def __str__(self):
-        return str(self.data)
-
-    def __eq__(self, other):
-        if isinstance(other, TreeNode):
-            return self.data == other.data
-
-    def __ne__(self, other):
-        if isinstance(other, TreeNode):
-            return self.data != other.data
+from utilities.node_factory import *
 
 class BinarySearchTree:
 

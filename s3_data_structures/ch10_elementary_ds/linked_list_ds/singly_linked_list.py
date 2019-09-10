@@ -1,4 +1,5 @@
 from s3_data_structures.ch10_elementary_ds.linked_list_ds.linked_list import *
+from utilities.node_factory import *
 
 '''
 single linked
@@ -9,12 +10,6 @@ search
 Print
 '''
 
-class SLLNode(Node):
-
-    def __init__(self, x):
-        super().__init__(x)
-        self.next = None
-
 class SinglyLinkedList(LinkedList):
 
     def __init__(self):
@@ -22,7 +17,7 @@ class SinglyLinkedList(LinkedList):
 
     def insert(self, x):
         '''
-        inserts x in the front of array
+        inserts x in the front of linked list
         '''
 
         if self.head:

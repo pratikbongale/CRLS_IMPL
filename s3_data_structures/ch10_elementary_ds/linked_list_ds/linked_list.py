@@ -16,13 +16,6 @@ class LinkedList:
     def pritn_list(self):
         raise NotImplementedError
 
-class Node:
-    def __init__(self, x):
-        self.data = x
-
-    def __str__(self):
-        return str(self.data)
-
 class EmptyLinkedListError(Exception):
     def __init__(self):
         self.msg = 'Linked List is Empty'

@@ -21,7 +21,34 @@ python filename.py [arg1] [arg2] ...
 
 #### How to test
 
-##### Simply run the program
+###### How to read test results
+- Test frameworks generate/raise AssertionError
+- They write the outputs as [..F..FF..] where dots'.' represent passed tests, and F is for Fail 
+
+###### Built-in test features
+```python
+assert sum([1,2,3]) == 6, "Sum should be 6"
+assert sum([1,1,1]) == 6, "Sum should be 6"  # will print the error message
+```
+
+###### Python test runners:
+- unittest (offered with python std library, defines its own assert methods)
+- pytest (easy, allows use of built-in assert statements)
+
+###### Unittest
+
+Requires you to: 
+- Inherit class TestClass and put your tests into methods of this class
+- Use special assert_*() methods
+- [Ref: Testing for beginners](https://realpython.com/python-testing/#testing-your-code)
+
+- A test fixture is created by inheriting unittest.TestCase and having methods setUp, tearDown, and test_*.
+- Use assert*() methods from unittest.TestCase for evaluating results.
+- Calling unittest.main() will collect all the module’s test cases and execute them.
+- We can also build a testsuite and add tests to it
+- recommended to create a separate module for test cases (eg. test_widget.py)
+- [Ref: Organizing Tests in a program](https://docs.python.org/3/library/unittest.html#organizing-tests)
+
 ```python
 import unittest
 
@@ -38,28 +65,122 @@ class TestStringMethods(unittest.TestCase):
         s = 'hello world'
         self.assertEqual(s.split(), ['hello', 'world'])
     
-        # check that s.split fails when the separator is not a string
-        with self.assertRaises(TypeError):
-            s.split(2)
+        
+        with self.assertRaises(TypeError):      # expecting TypeError
+            s.split('2222')   # this will not raise the error, so test case fails
+            # s.split(3)         # test case fails as the separator is not a string
 
 if __name__ == '__main__':
-    unittest.main()
+    
+    # dont need this when running code as: python -m unittest -v module_name
+    # Need this when running code as: python module_name.py
+    unittest.main()     # run all tests in this module 
 ```
 
-
-##### Command
 ```
 python -m unittest -v insertion_sort.py
 ```
 
-[Organizing Tests in a program](https://docs.python.org/3/library/unittest.html#organizing-tests)
+##### Pytest
 
-- A test fixture is created by inheriting unittest.TestCase and having methods setUp, tearDown, and test_*.
-- Use assert*() methods from unittest.TestCase for evaluating results.
-- Calling unittest.main() will collect all the module’s test cases and execute them.
-- We can also build a testsuite and add tests to it
-- recommended to create a separate module for test cases (eg. test_widget.py)
+- Needs to be installed: pip install pytest
+- Easy to use, define simple functions with assert statements
+- output provides detailed explanations, but we can suppress those in quiet mode
+- runs all files with test_*.py or *_test.py filenames
 
+```python
+class TestSum:
+    def test_sum(self):
+        assert sum([1,2,3]) == 6
+        assert sum([1,1,1]) == 6
+
+def test_sum1():
+    assert 1 == 1, "Are you kidding? I am unreachable comment"
+```
+
+Run pytest:
+```
+ $ pytest           # default mode
+ $ pytest -q        # quiet mode
+```
+
+Output:
+```
+================ FAILURES ==================================
+_____________ TestSum.test_sum _____________________________
+
+self = <hello_world.TestSum object at 0x7f918befc4a8>
+
+    def test_sum(self):
+        assert sum([1,2,3]) == 6
+>       assert sum([1,1,1]) == 6
+E       assert 3 == 6
+E        +  where 3 = sum([1, 1, 1])
+
+hello_world.py:6: AssertionError
+
+```
+
+@pytest.fixture: 
+- allow us to set up some helper code that should run before any test.
+- utilize it if you see any duplicate code in multiple tests
+- they can be parameterized as below:
+```python
+# content of conftest.py
+import pytest
+import smtplib
+
+# below function will be run once using every parameter
+# each test will be run on all parameters in params
+# params can be accessed by a special 'request' object
+@pytest.fixture(scope="module", params=["smtp.gmail.com", "mail.python.org"])
+def smtp_connection(request):
+
+    # similar to setUp()
+    smtp_connection = smtplib.SMTP(request.param, 587, timeout=5)
+    yield smtp_connection
+
+    # similar to tearDown(), only executed after the last test using this fixture executes
+    print("finalizing {}".format(smtp_connection))
+    smtp_connection.close()
+```
+- parameterizing test function with different arguments
+- means checking a function with different values of inp/exp
+```python
+# content of test_expectation.py
+import pytest
+
+@pytest.mark.parametrize(
+    "test_input,expected",
+    [("3+5", 8), ("2+4", 6), pytest.param("6*9", 42, marks=pytest.mark.xfail)],
+)
+def test_eval(test_input, expected):
+    assert eval(test_input) == expected
+
+
+# you can stack multiple arguments
+@pytest.mark.parametrize("x", [0, 1])
+@pytest.mark.parametrize("y", [2, 3])
+def test_foo(x, y):
+    # this will check:
+    # x = 0, y = 2
+    # x = 0, y = 3
+    # x = 1, y = 2
+    # x = 1, y = 3
+    pass
+```
+
+- the 3rd parameter is marked to `xfail`
+- which means `expected to fail`, so output will show as below:
+```
+> **..x**
+> === 2 passed, 1 xfailed in 0.12s ===
+```
+- there are more such markers (skip, skipif, parametrize)
+- and we can also define our own markers
+
+Following command prints the docstrings in fixtures.
+```pytest --fixtures```
 
 
 #### Python Idiosyncrasies

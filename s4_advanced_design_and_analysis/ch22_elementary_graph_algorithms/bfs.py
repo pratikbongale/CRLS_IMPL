@@ -7,8 +7,6 @@ def bfs(g, s, t=None):
     :return:
     '''
 
-
-
     q = [s]
 
     while q:

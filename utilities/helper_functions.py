@@ -25,4 +25,3 @@ def print_binary_tree(root):
                 z.append(x.right)
 
         q = z
-

@@ -1,13 +1,28 @@
-'''
-Always establish the conditions for Queue
-Tail -> always points to the next location to insert
-Head -> always points to the next location to delete from
+from abc import ABCMeta, abstractmethod
 
-Q is full when tail + 1 = head
-Q is empty when head = tail
-Q can store N-1 elements only
-'''
+class Queue:
 
+    __metaclass__ = ABCMeta
+
+    def __init__(self):
+        self.head = None
+        self.tail = None
+
+    @abstractmethod
+    def enqueue(self, x):
+        raise NotImplementedError
+
+    @abstractmethod
+    def dequeue(self):
+        raise NotImplementedError
+
+    def is_empty(self):
+        return self.head is None
+
+
+'''
+Below is the simple implementation of queue from CRLS
+'''
 head = tail = 0
 
 def enqueue(Q, x):

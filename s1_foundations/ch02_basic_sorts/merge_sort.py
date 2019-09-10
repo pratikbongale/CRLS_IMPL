@@ -37,13 +37,19 @@ def merge_old(a, b):
 
     return c
 
-def merge_sort_inplace_crls(A, p, r):
+
+def merge_sort_inplace(A):
+    merge_sort_inplace_helper(A, p=0, r=len(A)-1)
+
+
+def merge_sort_inplace_helper(A, p, r):
     # merge A[p..r]
     if p < r:
         q = (p+r)//2        # floor division by default
-        merge_sort_inplace_crls(A, p, q)
-        merge_sort_inplace_crls(A, q+1, r)
+        merge_sort_inplace_helper(A, p, q)
+        merge_sort_inplace_helper(A, q+1, r)
         merge_crls(A, p, q, r)
+
 
 def merge_crls(A, p, q, r):
     #  assuming p <= q <= r
@@ -82,7 +88,7 @@ if __name__ == '__main__':
     print('Inplace: ', arr == res)
     print(res)
 
-    merge_sort_inplace_crls(arr, 0, len(arr)-1)
+    merge_sort_inplace(arr)
     print(arr)
 
     # other tests are in Tests/test_sorts
