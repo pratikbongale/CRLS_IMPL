@@ -1,4 +1,8 @@
 
+'''
+Given below is a simple implementation of fixed size stack from CRLS
+'''
+
 top = -1    # points to element at top of stack
 def push(S, x):
     global top

@@ -1,13 +1,17 @@
 from s3_data_structures.ch10_elementary_ds.linked_list_ds.linked_list import *
+from s3_data_structures.ch10_elementary_ds.linked_list_ds.errors import *
 from utilities.node_factory import *
 
 '''
-single linked
-Insert at the head
-Remove specified element
-reverse
-search
-Print
+Properties:
+    single linked
+    
+Operations:
+    Insert at the head
+    Remove specified element
+    reverse
+    search
+    Print
 '''
 
 class SinglyLinkedList(LinkedList):
@@ -31,7 +35,7 @@ class SinglyLinkedList(LinkedList):
         '''
 
         if self.head is None:
-            raise EmptyLinkedListError
+            raise EmptyLinkedList
 
         if x.next is None:
 
@@ -42,7 +46,7 @@ class SinglyLinkedList(LinkedList):
                 z = z.next
 
             if z.next != x:
-                raise NodeNotFoundError
+                raise NodeNotFound
         else:
             z = x
 
@@ -109,8 +113,8 @@ if __name__ == '__main__':
     # test if it catches the exception
     try:
         sll.remove_ele(x)
-    except EmptyLinkedListError as err:
-        print(err.msg)
+    except EmptyLinkedList as err:
+        print(err.message)
 
     # test insert functionality
     sll.insert(SLLNode(100))

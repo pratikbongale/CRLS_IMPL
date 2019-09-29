@@ -67,8 +67,8 @@ class TestStringMethods(unittest.TestCase):
     
         
         with self.assertRaises(TypeError):      # expecting TypeError
-            s.split('2222')   # this will not raise the error, so test case fails
-            # s.split(3)         # test case fails as the separator is not a string
+            s.split('2222')   sayukta_coding_rounds
+            sayukta_coding_rounds
 
 if __name__ == '__main__':
     
@@ -301,3 +301,24 @@ class Main(Third):
 - Python module: source file (ex. foobar.py)
 - Python package: directory (ex. bst)
 - class names should have __CapWords__ format.
+
+##### Q. How do we define class methods in python? static methods vs class methods?
+- we use `@staticmethod` / `@classmethod` builtin decorator to define them
+```python
+class Demo:
+    def __init__(self, x, y):
+        pass
+
+    @classmethod
+    def class_method(cls, a1, a2):
+        return cls(a1, a2) 
+
+    @staticmethod
+    def static_method(a1, a2):
+        return a1 < a2
+```
+- static methods cannot access/modify the state of class, they are utility functions
+- static methods take some parameters, work on them and return some result
+- class methods can access/modify class state, they are used mostly as factory methods
+- class methods take class as first parameter always. 
+- Example for both -> [geeksforgeeks.org](https://www.geeksforgeeks.org/class-method-vs-static-method-python/)

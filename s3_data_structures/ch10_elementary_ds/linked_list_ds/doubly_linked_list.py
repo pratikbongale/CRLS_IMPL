@@ -1,12 +1,16 @@
 from s3_data_structures.ch10_elementary_ds.linked_list_ds.linked_list import *
+from s3_data_structures.ch10_elementary_ds.linked_list_ds.errors import *
 from utilities.node_factory import *
 
 '''
-Not circular
-Doubly - double ended
-Insert at the head
-Remove specified element
-Print
+Properties:
+    Not circular
+    Doubly - double ended
+
+Operations:
+    Insert at the head
+    Remove specified element
+    Print
 '''
 
 class DoublyLinkedList(LinkedList):
@@ -31,7 +35,7 @@ class DoublyLinkedList(LinkedList):
         '''
 
         if self.head is None:
-            raise EmptyLinkedListError
+            raise EmptyLinkedList
 
         if x.next:
             # if x has next element
@@ -45,7 +49,7 @@ class DoublyLinkedList(LinkedList):
                 if x == self.head:
                     self.head = None
                 else:
-                    raise NodeNotFoundError
+                    raise NodeNotFound
 
     def print_list(self):
 
@@ -66,8 +70,8 @@ if __name__ == '__main__':
     # test if it catches the exception
     try:
         dll.remove_ele(x)
-    except EmptyLinkedListError:
-        print('Linked List is Empty')
+    except EmptyLinkedList as err:
+        print(err.message)
 
     # test insert functionality
     dll.insert(DLLNode(100))
