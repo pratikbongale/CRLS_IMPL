@@ -1,41 +1,43 @@
 ### CRLS implementation in python 
 
-#### Create a virtual environment 
+#### set up
+
+##### Create a virtual environment 
 ```
 sudo apt-get install python-virtualenv
 virtualenv --python=/usr/bin/python3.6 env_crls_impl
 source env_crls_impl/bin/activate
 ```
 
-#### Clone repository
+##### Clone repository
 ```
 git clone https://github.com/pratikbongale/CRLS_IMPL.git
 cd active_learning_label_distributions
 pip install -r requirements.txt
 ```
----------
-#### How to run
+
+##### How to run
 ```
 python filename.py [arg1] [arg2] ...
 ```
 
 #### How to test
 
-###### How to read test results
+##### How to read test results
 - Test frameworks generate/raise AssertionError
 - They write the outputs as [..F..FF..] where dots'.' represent passed tests, and F is for Fail 
 
-###### Built-in test features
+##### Built-in test features
 ```python
 assert sum([1,2,3]) == 6, "Sum should be 6"
 assert sum([1,1,1]) == 6, "Sum should be 6"  # will print the error message
 ```
 
-###### Python test runners:
+##### Python test runners:
 - unittest (offered with python std library, defines its own assert methods)
 - pytest (easy, allows use of built-in assert statements)
 
-###### Unittest
+##### Unittest
 
 Requires you to: 
 - Inherit class TestClass and put your tests into methods of this class
@@ -67,8 +69,8 @@ class TestStringMethods(unittest.TestCase):
     
         
         with self.assertRaises(TypeError):      # expecting TypeError
-            s.split('2222')   sayukta_coding_rounds
-            sayukta_coding_rounds
+            s.split('2222')   
+
 
 if __name__ == '__main__':
     
@@ -251,7 +253,8 @@ class IInterface:
     __metaclass__ = ABCMeta
 
     @classmethod
-    def version(self): return "1.0"
+    def version(cls): return "1.0"
+    
     @abstractmethod
     def show(self): raise NotImplementedError
     
@@ -274,8 +277,16 @@ class MyClient(object):
 MyClient(MyServer()).client_show()
 ```
 
-- For multiple inheritance, follow order left to right to find a method
+- For multiple inheritance, follow order left to right to find a method, also called MRO(Method Resolution Order)
 ```python
+class First:
+    def show(self):
+        pass
+
+class Second:
+    def show(self):
+        pass
+
 class Third(First, Second):
     def show(self):
         pass
@@ -286,7 +297,6 @@ class Main(Third):
 ```  
 
 - when the case is ambiguous, python raises an exception
-
 
 ##### Q. difference between 'is' and '=='?
 - 'is' will return True if two variables point to the same object
@@ -322,3 +332,43 @@ class Demo:
 - class methods can access/modify class state, they are used mostly as factory methods
 - class methods take class as first parameter always. 
 - Example for both -> [geeksforgeeks.org](https://www.geeksforgeeks.org/class-method-vs-static-method-python/)
+
+##### Q. duck typing, type hints and static checking in python?
+- "if it walks like a duck and it quacks like a duck, then it must be a duck"
+- In normal typing, the type declaration is checked to see if an object can do a particular task/func
+- In duck typing, the presence of certain methods and properties is checked to determine objs' suitability.
+- example:
+```python
+class TheHobbit:
+    def __len__(self):
+        return 95022
+
+the_hobbit = TheHobbit()
+print(len(the_hobbit))   # 95022     
+
+# this works because len() checks only for presence of __len__ method in the object the_hobbit 
+def len(obj):
+    return obj.__len__()
+```
+
+- _Type hints_: not enforced by python, its just a hint
+```python
+def headline(text: str, align: bool = True) -> str:
+    pass
+```
+- for primitive types, we can directly use them, however, for complex types, we use module typing:
+- [documentation](https://docs.python.org/3/library/typing.html#newtype)
+- [cheatsheet](https://mypy.readthedocs.io/en/latest/cheat_sheet_py3.html)
+
+```python
+from typing import List
+def foo(l1: List[str]) -> None:
+    pass
+
+# we can also assign alias
+Vector = List[float]
+def foo1(v: Vector) -> None:
+    pass
+``` 
+
+_Static Typing_: use `mypy abc.py`, you need to do `pip install mypy` before using it. 
