@@ -1,29 +1,8 @@
-from abc import ABCMeta, abstractmethod
-
-class Queue:
-
-    __metaclass__ = ABCMeta
-
-    def __init__(self):
-        self.head = None
-        self.tail = None
-
-    @abstractmethod
-    def enqueue(self, x):
-        raise NotImplementedError
-
-    @abstractmethod
-    def dequeue(self):
-        raise NotImplementedError
-
-    def is_empty(self):
-        return self.head is None
-
-
 '''
 Below is the simple implementation of queue from CRLS
 '''
 head = tail = 0
+
 
 def enqueue(Q, x):
     global tail

@@ -1,25 +1,40 @@
-from s3_data_structures.ch10_elementary_ds.queue_ds.queue import Queue
+from s3_data_structures.ch10_elementary_ds.queue_ds.my_queue import MyQueue
 from s3_data_structures.ch10_elementary_ds.queue_ds.errors import *
+from utilities.node_factory import Node, SLLNode
 from utilities.node_factory import NodeGenerator
+from typing import Any
 
 '''
-This is a queue built using linked list, so it can practically hold infinite elements.
+This is a queue built using linked list, so technically it can hold infinite elements.
 
 Always establish the conditions for Queue
 Tail -> always points to the last inserted element
 Head -> always points to the next location to delete from
 '''
 
-class LinkedQueue(Queue):
+class LinkedQueue(MyQueue):
 
     def __init__(self):
         super().__init__()
+        self.head: SLLNode
+        self.tail: SLLNode
 
-    def enqueue(self, x):
+    def is_full(self):
+        # LinkedQueue is practically infinite, so it will never be full
+        return False
+
+    def is_empty(self):
+        return self.head is None
+
+    def enqueue(self, x:Any):
         '''
         Enqueue given element in the linked list
         :param x: any data object
         '''
+
+        if not isinstance(x, SLLNode):
+            # create a node object
+            x = NodeGenerator.get_sll_node(x)
 
         if self.is_empty():
             self.head = self.tail = x
@@ -58,10 +73,19 @@ class LinkedQueue(Queue):
 
 if __name__ == '__main__':
 
-    ng = NodeGenerator()
+    # testing simple interger queue
+    lq = LinkedQueue()
 
-    n1 = ng.get_sll_node(10)
-    n2 = ng.get_sll_node(20)
+    arr = [lq.enqueue(x) for x in range(10, 101, 10)]
+    print('Initial queue', lq)
+
+    print('Dequeue()')
+    lq.dequeue()
+    print(lq)
+
+    # testing SLL
+    n1 = NodeGenerator.get_sll_node(10)
+    n2 = NodeGenerator.get_sll_node(20)
 
     lq = LinkedQueue()
     lq.enqueue(n1)
