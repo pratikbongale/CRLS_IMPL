@@ -1,4 +1,3 @@
-
 '''
 Given below is a simple implementation of fixed size stack from CRLS
 '''
