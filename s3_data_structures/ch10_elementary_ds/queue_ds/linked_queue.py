@@ -100,7 +100,7 @@ if __name__ == '__main__':
     except EmptyQueueError as e:
         print('Error:', e.message)
         print('Suggestion:', e.suggest)
-    except Error as e:
+    except MyException as e:
         print(e.message)
 
     lq.enqueue(n2)

@@ -1,7 +1,7 @@
 # having a common base class we know that every
 # custom exception class will at least have the property "message"
 # which gives a description of what was the error
-class Error(Exception):
+class MyException(Exception):
 
     __slots__ = ['message']
 

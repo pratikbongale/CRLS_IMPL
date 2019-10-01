@@ -1,6 +1,4 @@
 from abc import ABCMeta, abstractmethod
-from utilities.error import Error
-
 
 class LinkedList:
 
