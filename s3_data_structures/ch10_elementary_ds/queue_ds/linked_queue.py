@@ -52,7 +52,7 @@ class LinkedQueue(MyQueue):
         if self.is_empty():
             raise EmptyQueueError()
 
-        removed_ele = self.head
+        removed_ele = self.head.data
 
         # check if its the last element in the queue
         if self.head == self.tail:
