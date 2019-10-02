@@ -135,7 +135,6 @@ class BinarySearchTree:
             print(x, end=' ')
             self.inorder_rec(x.right)
 
-
     def inorder_nonrec(self, x):
         if not self.root:
             return None
@@ -164,7 +163,10 @@ class BinarySearchTree:
             if not s and not y:
                 break
 
-    def inorder_nonrec_nostack(self,  root):
+    @staticmethod
+    def inorder_nonrec_nostack(root):
+        # modifies right pointers of leaf nodes
+
         curr = root
 
         while curr:
