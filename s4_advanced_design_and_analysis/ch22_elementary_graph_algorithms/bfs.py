@@ -1,7 +1,9 @@
 from enum import Enum
 from s3_data_structures.ch10_elementary_ds.queue_ds.linked_queue import LinkedQueue
 from s4_advanced_design_and_analysis.ch22_elementary_graph_algorithms.graph import *
+from utilities.node_factory import GraphNode
 import math
+
 
 
 class Color(Enum):
@@ -10,19 +12,31 @@ class Color(Enum):
     BLACK = 3       # visited, neighbors added to queue
 
 
-def bfs(graph, s):
+def bfs(g, s):
     """
     Primarily used to find the shortest distance of all nodes from a given start node
-    :param graph: adjacency list representation of graph
+    :param g: adjacency list representation of graph
     :param s: start node
     """
 
-    # color all nodes to be white
-    for u in graph.adj_list:
-        u.color = Color.WHITE
-        u.dist = math.inf
-        u.parent = None
+    if s not in g.adj_list:
+        print('Start node not found in graph')
+        return
 
+    bfs_graph = Graph()
+    bfs_graph.v_map = dict()
+
+    # convert all elements to nodes
+    # color all nodes white
+    for u in g.adj_list.keys():
+        n = GraphNode(u)     # create graph node
+        n.color = Color.WHITE
+        n.dist = math.inf
+        n.parent = None
+
+        bfs_graph.v_map[u] = n   # store in vertex map
+
+    s = bfs_graph.v_map[s]
     s.color = Color.GRAY
     s.dist = 0
     s.parent = None
@@ -33,7 +47,10 @@ def bfs(graph, s):
     while not q.is_empty():
         u = q.dequeue()
 
-        for v in graph.adj[u]:
+        for v in g.adj_list[u.data]:
+
+            v = bfs_graph.v_map[v]  # get a bfs node of this element
+
             if v.color == Color.WHITE:
                 # not visited
                 v.color = Color.GRAY  # visit this node
@@ -43,15 +60,18 @@ def bfs(graph, s):
 
         u.color = Color.BLACK   # done processing this node
 
+    return bfs_graph
 
-def print_path(s, t):
+def print_path(g, s, t):
+
+    t_node = g.v_map[t]
 
     if t == s:
         print(str(s))
-    elif t.parent is None:
+    elif t_node.parent is None:
         print('No path')
     else:
-        print_path(s, t.parent)
+        print_path(g, s, t_node.parent)
 
 
 if __name__ == '__main__':
@@ -73,9 +93,16 @@ if __name__ == '__main__':
         '5': ['1', '2', '4']
     }
 
-    g = Graph(dir_graph)
+    g = Graph()
+    g.build_graph(dir_graph)
     g.print_graph()
-    print(g.get_node('1'))
+    print('\nNeighbors of 1:', g.get_nbors('1'))
+
+    bfs_graph = bfs(g, '1')
+    print_path(bfs_graph, '1', '5')     # TODO: fix needed
+
+
+
 
 
 

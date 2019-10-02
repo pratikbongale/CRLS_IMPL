@@ -92,5 +92,5 @@ class GraphNode(Node):
         return str(self.data)
 
     def __eq__(self, other):
-        if isinstance(GraphNode, other):
+        if isinstance(other, GraphNode):
             return self.data == other.data
