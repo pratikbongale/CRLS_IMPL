@@ -1,9 +1,7 @@
 from enum import Enum
 from s3_data_structures.ch10_elementary_ds.queue_ds.linked_queue import LinkedQueue
 from s4_advanced_design_and_analysis.ch22_elementary_graph_algorithms.graph import *
-from utilities.node_factory import GraphNode
 import math
-
 
 
 class Color(Enum):
@@ -12,66 +10,62 @@ class Color(Enum):
     BLACK = 3       # visited, neighbors added to queue
 
 
-def bfs(g, s):
+def bfs(g: Graph, s: Any):
     """
     Primarily used to find the shortest distance of all nodes from a given start node
     :param g: adjacency list representation of graph
     :param s: start node
     """
 
-    if s not in g.adj_list:
-        print('Start node not found in graph')
+    if len(g.adj_list) > 0:
+        if s not in g.adj_list:
+            print('Start node not found in graph')
+            return
+    else:
+        print('Graph not initialized, please call build_graph()')
         return
-
-    bfs_graph = Graph()
-    bfs_graph.v_map = dict()
 
     # convert all elements to nodes
     # color all nodes white
-    for u in g.adj_list.keys():
-        n = GraphNode(u)     # create graph node
-        n.color = Color.WHITE
-        n.dist = math.inf
-        n.parent = None
+    for v in g.vertices.values():
+        v.color = Color.WHITE
+        v.dist = math.inf
+        v.parent = None
 
-        bfs_graph.v_map[u] = n   # store in vertex map
-
-    s = bfs_graph.v_map[s]
-    s.color = Color.GRAY
-    s.dist = 0
-    s.parent = None
+    s_node = g.vertices[s]
+    s_node.color = Color.GRAY
+    s_node.dist = 0
+    s_node.parent = None
 
     q = LinkedQueue()
-    q.enqueue(s)
+    q.enqueue(s_node)
 
     while not q.is_empty():
-        u = q.dequeue()
+        u: GraphNode = q.dequeue()
 
-        for v in g.adj_list[u.data]:
+        for v in g.edges[u.data]:
 
-            v = bfs_graph.v_map[v]  # get a bfs node of this element
-
-            if v.color == Color.WHITE:
-                # not visited
-                v.color = Color.GRAY  # visit this node
+            if v.color == Color.WHITE:  # not visited
+                v.color = Color.GRAY    # visit this node
                 v.dist = u.dist + 1
                 v.parent = u
                 q.enqueue(v)
 
         u.color = Color.BLACK   # done processing this node
 
-    return bfs_graph
 
-def print_path(g, s, t):
+def print_path(g: Graph, s: Any, t:Any):
 
-    t_node = g.v_map[t]
+    s_node = g.vertices[s]
+    t_node = g.vertices[t]
 
-    if t == s:
-        print(str(s))
+    if t_node == s_node:
+        print(str(s), end=' ')
     elif t_node.parent is None:
-        print('No path')
+        print('No path from', s, 'to', t)
     else:
-        print_path(g, s, t_node.parent)
+        print_path(g, s, t_node.parent.data)
+        print(str(t), end=' ')
 
 
 if __name__ == '__main__':
@@ -96,17 +90,15 @@ if __name__ == '__main__':
     g = Graph()
     g.build_graph(dir_graph)
     g.print_graph()
-    print('\nNeighbors of 1:', g.get_nbors('1'))
 
-    bfs_graph = bfs(g, '1')
-    print_path(bfs_graph, '1', '5')     # TODO: fix needed
+    bfs(g, '1')
+    print('\nAfter BFS on directed graph, path from 1->5', end=' ')
+    print_path(g, '1', '5')
 
+    g = Graph()
+    g.build_graph(undir_graph)
+    g.print_graph()
 
-
-
-
-
-
-
-
-
+    bfs(g, '1')
+    print('\nAfter BFS on undirected graph, path from 1->5', end=' ')
+    print_path(g, '1', '5')

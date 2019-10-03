@@ -93,4 +93,7 @@ class GraphNode(Node):
 
     def __eq__(self, other):
         if isinstance(other, GraphNode):
-            return self.data == other.data
+            return self.data == other.data \
+                   and self.color == self.color \
+                   and self.dist == self.dist \
+                   and self.parent == self.parent
