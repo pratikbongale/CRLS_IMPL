@@ -83,7 +83,7 @@ class GraphNode(Node):
      only valid for adjacency tree
     """
 
-    __slots__ = ["data", "color", "dist", "parent"]
+    __slots__ = ["data", "color", "dist", "parent", "d", "f"]
 
     def __init__(self, x=None):
         super().__init__(x)
@@ -93,7 +93,4 @@ class GraphNode(Node):
 
     def __eq__(self, other):
         if isinstance(other, GraphNode):
-            return self.data == other.data \
-                   and self.color == self.color \
-                   and self.dist == self.dist \
-                   and self.parent == self.parent
+            return self.data == other.data

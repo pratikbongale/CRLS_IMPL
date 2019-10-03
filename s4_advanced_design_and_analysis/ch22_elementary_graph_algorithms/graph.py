@@ -4,16 +4,12 @@ from collections import defaultdict
 from typing import Dict, List, Any, DefaultDict
 
 
-class Vertex:
-    def __init__(self, data: str):
-        self.data = data
-        self.parent = None
-
-
 class Graph:
     # graph with Adjacency List
 
     __metaclass__ = ABCMeta
+
+    __slots__ = ['adj_list', 'vertices', 'edges']
 
     def __init__(self):
 
@@ -48,6 +44,12 @@ class Graph:
         else:
             print('Node not found in graph')
             return None
+
+    def is_empty(self):
+        return len(self.adj_list) == 0
+
+    def has_nodes(self):
+        return not self.is_empty() and len(self.vertices) > 0
 
     def get_nbors(self, x):
 

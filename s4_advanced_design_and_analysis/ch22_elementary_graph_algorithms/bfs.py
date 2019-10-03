@@ -12,7 +12,8 @@ class Color(Enum):
 
 def bfs(g: Graph, s: Any):
     """
-    Primarily used to find the shortest distance of all nodes from a given start node
+    Primarily used to find the shortest distance of all nodes from a given start node 's'
+    Note: This method create a single BFS tree, connecting all nodes in subgraph(g) which contains 's'
     :param g: adjacency list representation of graph
     :param s: start node
     """
