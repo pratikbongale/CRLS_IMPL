@@ -1,13 +1,6 @@
-from enum import Enum
 from s3_data_structures.ch10_elementary_ds.queue_ds.linked_queue import LinkedQueue
 from s4_advanced_design_and_analysis.ch22_elementary_graph_algorithms.graph import *
 import math
-
-
-class Color(Enum):
-    WHITE = 1       # not visited
-    GRAY = 2        # added in queue, ready to be visited
-    BLACK = 3       # visited, neighbors added to queue
 
 
 def bfs(g: Graph, s: Any):

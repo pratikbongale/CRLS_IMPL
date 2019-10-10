@@ -24,6 +24,9 @@ class SinglyLinkedList(LinkedList):
         inserts x in the front of linked list
         '''
 
+        if not isinstance(x, SLLNode):
+            x = SLLNode(x)
+
         if self.head:
             x.next = self.head
 
@@ -103,6 +106,9 @@ class SinglyLinkedList(LinkedList):
 
     def is_empty(self):
         return self.head is None
+
+    def merge(self, ll_1, ll_2):
+        raise NotImplementedError
 
 if __name__ == '__main__':
 

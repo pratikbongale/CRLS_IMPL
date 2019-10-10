@@ -1,12 +1,6 @@
-from s4_advanced_design_and_analysis.ch22_elementary_graph_algorithms.graph import Graph
+from s4_advanced_design_and_analysis.ch22_elementary_graph_algorithms.graph import Graph, Color
 from utilities.node_factory import GraphNode
 from s4_advanced_design_and_analysis.ch22_elementary_graph_algorithms.bfs import print_path
-from enum import Enum
-
-class Color(Enum):
-    WHITE = 1       # not visited
-    GRAY = 2        # ready to be visited
-    BLACK = 3       # visited
 
 time: int = 0
 
@@ -37,6 +31,7 @@ def dfs(g: Graph):
         if v.color == Color.WHITE:
             dfs_visit(g, v)
 
+
 def dfs_visit(g: Graph, u: GraphNode):
 
     global time
@@ -54,7 +49,8 @@ def dfs_visit(g: Graph, u: GraphNode):
     u.f = time
     u.color = Color.BLACK
 
-
+def dfs_iterative(g):
+    pass
 
 if __name__ == '__main__':
 
