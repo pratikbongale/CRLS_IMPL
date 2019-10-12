@@ -103,6 +103,16 @@ class DoublyLinkedListSentinel(LinkedList):
     def is_empty(self):
         return self.sentinel.next is self.sentinel and self.sentinel.prev is self.sentinel
 
+    def get_head(self) -> Optional[DLLNode]:
+        if self.is_empty():
+            return None
+        return self.sentinel.next
+
+    def get_tail(self):
+        if self.is_empty():
+            return None
+        return self.sentinel.prev
+
     def merge(self, dll):
 
         if not isinstance(dll, self.__class__):

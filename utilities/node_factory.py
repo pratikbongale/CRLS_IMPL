@@ -39,6 +39,11 @@ class DLLNode(Node):
         self.prev = None
         self.next = None
 
+    def __eq__(self, other: object) -> bool:
+        if not isinstance(other, self.__class__):
+            raise NotImplemented
+        return self.data == other.data
+
 
 class TreeNode(Node):
     def __init__(self, x):

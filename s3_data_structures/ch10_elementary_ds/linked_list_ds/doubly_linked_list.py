@@ -107,6 +107,15 @@ class DoublyLinkedList(LinkedList):
             self.tail.next = dll.head
             self.tail = dll.tail
 
+    def __str__(self):
+        s = ''
+        x = self.head
+        while x:
+            s += str(x.data) + (' <-> ' if x.next else '')
+            x = x.next
+
+        return s
+
 
 if __name__ == '__main__':
 
