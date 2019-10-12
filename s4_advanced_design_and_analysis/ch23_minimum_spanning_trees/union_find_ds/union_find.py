@@ -1,18 +1,18 @@
+from typing import Any
 from abc import ABCMeta, abstractmethod
-from utilities.node_factory import Node
 
-class LinkedList:
+class UnionFind:
 
     __metaclass__ = ABCMeta
 
     @abstractmethod
-    def insert(self, x):
+    def make_set(self, x: Any):
         raise NotImplementedError
 
     @abstractmethod
-    def remove_ele(self, x):
+    def find_set(self, x: Any):
         raise NotImplementedError
 
     @abstractmethod
-    def print_list(self):
+    def union(self, s1, s2):
         raise NotImplementedError

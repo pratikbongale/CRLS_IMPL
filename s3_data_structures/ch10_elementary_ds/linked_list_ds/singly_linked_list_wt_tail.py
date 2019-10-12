@@ -4,20 +4,28 @@ from utilities.node_factory import *
 
 '''
 Properties:
-    single linked, without tail pointer
+    single linked with tail pointer
     
+Applications:
+    Use only when:
+        You only need to insert at the front or back of the list
+        You only need to delete from the front of the list
+        You only need to traverse the list in the forward direction 
+        
 Operations:
-    Insert at the head          - O(1)
-    Remove specified element    - O(n)
-    Reverse                     - O(n)
-    Search                      - O(n)
-    Print                       - O(n)                       
+    Insert at the head
+    Append to the tail
+    Remove specified element
+    reverse
+    search
+    Print
 '''
 
 class SinglyLinkedList(LinkedList):
 
     def __init__(self):
         self.head = None
+        self.tail = None
 
     def insert(self, x):
         '''
@@ -29,13 +37,29 @@ class SinglyLinkedList(LinkedList):
 
         if self.head:
             x.next = self.head
+        else:
+            self.head = x
+            self.tail = x
+            
+    def append(self, x: SLLNode):
+        '''
+        appends x to the end of linked list
+        :param x:
+        :return:
+        '''
 
-        self.head = x
+        if not isinstance(x, SLLNode):
+            x = SLLNode(x)
+
+        if not self.is_empty():
+            self.tail.next = x
+            self.tail = self.tail.next
+        else:
+            self.head = self.tail = x
 
     def remove_ele(self, x):
         '''
         remove element pointed to by x
-        :raises EmptyLinkedList, NodeNotFound
         '''
 
         if self.head is None:
@@ -43,12 +67,8 @@ class SinglyLinkedList(LinkedList):
 
         if x.next is None:
 
-            # check if this is the only node
-            if x is self.head:
-                self.head = None    # deleting last node
-                return
-
-            # find the node 'z' before x
+            # find the node(z) before x
+            # this loop can be avoided if we use sentinal node
             z = self.head
             while z.next != x:
                 z = z.next
@@ -82,6 +102,7 @@ class SinglyLinkedList(LinkedList):
 
     def reverse(self):
 
+        self.tail = self.head
         x = self.head
         y = None
 
@@ -113,27 +134,16 @@ class SinglyLinkedList(LinkedList):
         return self.head is None
 
     def merge(self, ll):
-        # merge this and ll (append ll to self's tail)
 
         if not isinstance(ll, self.__class__):
             print('Cannot merge: Input is not an instance of SinglyLinkedList')
-            return
 
-        if self.is_empty():
-            self.head = ll.head
-            return
+        if self.tail:
+            self.tail.next = ll.head
+            self.tail = ll.tail
+        else:
+            self.head = self.tail = ll.head
 
-        # find the tail node
-        tail = self.head
-        while tail.next:
-            tail = tail.next
-
-        # append to tail
-        tail.next = ll
-
-        # update the tail
-        while tail.next:
-            tail = tail.next
 
 if __name__ == '__main__':
 
